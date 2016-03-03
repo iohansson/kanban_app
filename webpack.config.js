@@ -1,11 +1,13 @@
-const path = require('path');
+const path = require('path'),
+  merge = require('webpack-merge');
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build')
-};
+},
+  TARGET = process.env.npm_lifecycle_event;
 
-module.exports = {
+const common = {
   entry: {
     app: PATHS.app
   },
@@ -14,3 +16,10 @@ module.exports = {
     filename: 'bundle.js'
   }
 };
+
+if (TARGET === 'start' || !TARGET) {
+  module.exports = merge(common, {});
+}
+if (TARGET === 'build') {
+  module.exports = merge(common, {});
+}
