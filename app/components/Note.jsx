@@ -1,3 +1,5 @@
 import React from 'react';
 
-export default () => <div>Learn Webpack! or not</div>;
+const note = <div>Learn Webpack! or not</div>;
+
+export default note;
