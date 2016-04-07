@@ -38,8 +38,8 @@ export default class App extends React.Component {
       <div>
         <button onClick={this.addNote.bind(this)}>+</button>
         <ul>{notes.map((note) =>
-          <li key={note.id}>{note.task}</li>)}
-        </ul>
+          <li key={note.id}><Note task={note.task} /></li>
+        )}</ul>
       </div>
     );
   }
