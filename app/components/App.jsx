@@ -1,45 +1,43 @@
 import React from 'react';
-import uuid from 'node-uuid';
-import Note from './Note.jsx';
+import Notes from './Notes.jsx';
+import NoteStore from '../store/NoteStore';
+import NoteActions from '../actions/NoteActions';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      notes: [
-        {
-          id: uuid.v4(),
-          task: 'Learn Webpack'
-        },
-        {
-          id: uuid.v4(),
-          task: 'Learn React'
-        },
-        {
-          id: uuid.v4(),
-          task: 'Do Laundry'
-        }
-      ]
-    }
+    this.state = NoteStore.getState();
+  }
+  componentDidMount() {
+    NoteStore.listen(this.storeChanged.bind(this));
+  }
+  componentWillUnmount() {
+    NoteStore.unlisten(this.storeChanged.bind(this));
+  }
+  storeChanged(state) {
+    this.setState(state);
   }
   addNote() {
-    this.setState({
-      notes: this.state.notes.concat([{
-        id: uuid.v4(),
-        task: 'New Task'
-      }])
-    });
+    NoteActions.create({ task: 'New task' });
+  }
+  editNote(id, task) {
+    if (!task.trim()) { return; }
+
+    NoteActions.update({id, task});
+  }
+  deleteNote(id, e) {
+    e.stopPropagation();
+
+    NoteActions.delete(id);
   }
   render() {
     const {notes} = this.state;
 
     return (
-      <div>
-        <button onClick={this.addNote.bind(this)}>+</button>
-        <ul>{notes.map((note) =>
-          <li key={note.id}><Note task={note.task} /></li>
-        )}</ul>
+      <div className="container">
+        <button className="add-note" onClick={this.addNote.bind(this)}>+</button>
+        <Notes notes={notes} onEdit={this.editNote.bind(this)} onDelete={this.deleteNote.bind(this)} />
       </div>
     );
   }

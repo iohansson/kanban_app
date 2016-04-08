@@ -33,6 +33,11 @@ const common = {
         test: /\.jsx$/,
         loaders: ['babel?cacheDirectory'],
         include: PATHS.app
+      },
+      {
+        test: /\.js$/,
+        loaders: ['babel?cacheDirectory'],
+        include: PATHS.app
       }
     ]
   }

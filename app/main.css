@@ -1,3 +1,31 @@
 body {
   background: #bada55;
 }
+.container {
+  width: 50%;
+  left: 25%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0;
+}
+.add-note {
+  font-size: 6em;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  border-radius: 50%;
+  border: 1px solid #666;
+  background-color: #fff;
+  color: #666;
+  outline: none;
+  cursor: pointer;
+}
+.note-list {
+  list-style-type: none;
+  font-size: 2em;
+  margin: 0;
+  padding: 0;
+  margin-left: 3em;
+}
